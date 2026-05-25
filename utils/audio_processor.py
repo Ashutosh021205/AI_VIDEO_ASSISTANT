@@ -4,7 +4,6 @@ import yt_dlp
 from pydub import AudioSegment
 
 # FFmpeg paths for your system
-AudioSegment.converter = r"C:\ffmpeg\bin\ffmpeg.exe"
 AudioSegment.ffmpeg = r"C:\ffmpeg\bin\ffmpeg.exe"
 AudioSegment.ffprobe = r"C:\ffmpeg\bin\ffprobe.exe"
 
