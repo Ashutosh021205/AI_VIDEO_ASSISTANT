@@ -1,0 +1,25 @@
+# Python
+.venv/
+__pycache__/
+*.pyc
+
+# Secrets
+.env
+
+# FFmpeg
+ffmpeg-8.1.1-essentials_build/
+
+# Chroma DB
+vector_db/
+
+# Generated data
+downloads/
+chunks/
+temp/
+output/
+
+# Media
+*.mp3
+*.wav
+*.m4a
+*.mp4
