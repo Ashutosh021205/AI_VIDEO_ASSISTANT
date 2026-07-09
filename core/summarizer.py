@@ -23,7 +23,21 @@ def summarize(transcript : str) -> str:
 
     map_prompt = ChatPromptTemplate.from_messages(
         [
-        ("system", "Summarize this portion of a meeting transcript concisely."),
+        ("system",
+"""
+You are an AI meeting assistant.
+
+Summarize this portion of the meeting.
+
+Focus on:
+- Important discussion points
+- Decisions made
+- Tasks mentioned
+- Deadlines mentioned
+- Any blockers
+
+Keep it concise.
+"""),
         ("human", "{text}"),
     ]
     )
@@ -40,8 +54,34 @@ def summarize(transcript : str) -> str:
         [
         (
             "system",
-            "You are an expert meeting summarizer. Combine these partial summaries "
-            "into one final professional meeting summary in bullet points.",
+            """
+You are an expert AI Meeting Assistant.
+
+Using the partial summaries below, generate the final meeting report in this format.
+
+# Meeting Summary
+Provide a concise overview.
+
+# Key Discussion Points
+- Point 1
+- Point 2
+
+# Decisions Made
+- Decision 1
+- Decision 2
+
+# Action Items
+| Owner | Task | Deadline |
+|-------|------|----------|
+
+If owner or deadline is unavailable, write "Not Specified".
+
+# Risks / Blockers
+List any blockers discussed.
+
+# Next Steps
+List follow-up actions.
+""",
         ),
         ("human", "{text}"),
     ]
