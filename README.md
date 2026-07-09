@@ -1,88 +1,299 @@
-# 🎬 AI Video Assistant
+# 📝 AI Meeting Summarizer
 
-An AI-powered video processing system that converts videos (YouTube or local files) into **transcripts, summaries, and structured insights** using a GenAI pipeline.
+An AI-powered Meeting Intelligence Platform that automatically converts meeting audio/video into **accurate transcripts, structured summaries, key decisions, action items, and intelligent meeting insights** using **Whisper, LangChain, Mistral AI, and Retrieval-Augmented Generation (RAG).**
 
 ---
 
 ## 🚀 Features
 
-- 🎥 Supports YouTube URLs and local video files  
-- 🔊 Audio extraction from video  
-- 🧠 Automatic speech-to-text transcription  
-- ✍️ AI-powered summarization of content  
-- 📌 Key points, decisions, and action item extraction  
-- 🔎 RAG-style question answering over video content  
-- 🌐 Multi-language support (e.g., English, Hinglish)  
+- 🎙️ Supports Meeting Audio, Video Files, and YouTube URLs
+- 🔊 Automatic Audio Processing
+- 📝 Speech-to-Text Transcription using Whisper
+- 🤖 AI-Powered Meeting Summarization
+- 📌 Automatic Meeting Title Generation
+- ✅ Action Item Extraction
+- 🔑 Key Decision Identification
+- ⚠️ Open Questions & Follow-up Detection
+- 💬 Ask Questions About Your Meeting (RAG)
+- 🌍 Multi-language Support (English & Hinglish)
+- 🖥️ Interactive Streamlit Dashboard
 
 ---
 
-## 🧠 System Workflow
+# 🧠 System Workflow
 
-The project follows a **GenAI pipeline for video intelligence**:
+The project follows an end-to-end GenAI pipeline for meeting intelligence.
 
-1. **Input Video Source**
-   - YouTube URL or local video file  
-
-2. **Audio Extraction**
-   - Extract audio from video using processing utilities  
-
-3. **Transcription Layer**
-   - Convert speech → text using ASR (Automatic Speech Recognition)  
-
-4. **AI Processing Layer**
-   - Summarization of transcript  
-   - Extraction of:
-     - Key points  
-     - Action items  
-     - Important decisions  
-     - Questions  
-
-5. **RAG-Based Q&A Engine**
-   - Users can query the video content using LLM-based retrieval over transcript  
+```text
+Meeting Audio / Video
+           │
+           ▼
+Audio Processing
+           │
+           ▼
+Speech-to-Text (Whisper)
+           │
+           ▼
+Meeting Transcript
+           │
+           ▼
+LLM (Mistral AI)
+           │
+           ├──────────────┐
+           │              │
+           ▼              ▼
+Meeting Summary      Meeting Title
+           │
+           ├──────────────┐
+           │              │
+           ▼              ▼
+Action Items     Key Decisions
+           │
+           ▼
+Open Questions / Risks
+           │
+           ▼
+RAG Knowledge Base
+           │
+           ▼
+Ask Questions About Meeting
+```
 
 ---
 
-## 🛠️ Tech Stack
+# ✨ Features Explained
 
-- Python  
-- yt-dlp (YouTube video download)  
-- pydub (audio processing)  
-- Speech-to-Text (Whisper / ASR models)  
-- Large Language Models (LLMs)  
-- Prompt Engineering  
-- RAG (Retrieval-Augmented Generation)  
-- Streamlit (optional UI)  
-- FFmpeg (audio/video processing backend)
+### 🎙️ Speech-to-Text
+
+- Converts meeting recordings into accurate transcripts using Whisper.
+- Supports long meetings through chunked transcription.
 
 ---
-## 📂 Project Structure
 
-├── main.py # Entry point
+### 📝 AI Meeting Summary
+
+Automatically generates a concise meeting summary highlighting:
+
+- Main discussion points
+- Important outcomes
+- Overall meeting context
+
+---
+
+### 📌 Meeting Title
+
+Generates a professional meeting title automatically.
+
+Example:
+
+- Sprint Planning Meeting
+- Weekly Sales Review
+- Product Launch Discussion
+
+---
+
+### ✅ Action Item Extraction
+
+Identifies:
+
+- Task
+- Owner
+- Deadline
+- Priority
+
+Example:
+
+| Owner | Task | Deadline | Priority |
+|-------|--------|-----------|----------|
+| Rahul | Update API | Friday | High |
+| Priya | Prepare Presentation | Monday | Medium |
+
+---
+
+### 🔑 Key Decisions
+
+Automatically extracts all finalized decisions discussed during the meeting.
+
+---
+
+### ⚠ Open Questions
+
+Detects:
+
+- Pending discussions
+- Unresolved issues
+- Risks
+- Follow-up topics
+
+---
+
+### 💬 Chat with Your Meeting
+
+Uses Retrieval-Augmented Generation (RAG) so users can ask questions like:
+
+- What did Rahul commit to?
+- What is the project deadline?
+- Who is responsible for deployment?
+- What were the final decisions?
+
+---
+
+# 🛠 Tech Stack
+
+## Languages
+
+- Python
+
+## AI / LLM
+
+- Mistral AI
+- LangChain
+- Prompt Engineering
+
+## Speech Recognition
+
+- OpenAI Whisper
+
+## Vector Database
+
+- ChromaDB
+
+## Audio Processing
+
+- FFmpeg
+- Pydub
+- yt-dlp
+
+## Frontend
+
+- Streamlit
+
+## Retrieval
+
+- Retrieval-Augmented Generation (RAG)
+
+---
+
+# 📂 Project Structure
+
+```
+AI_MEETING_SUMMARIZER
+│
+├── app.py                      # Streamlit UI
+├── main.py                     # Main Pipeline
+│
 ├── core/
-│ ├── transcriber.py # Speech-to-text module
-│ ├── summarizer.py # AI summarization logic
-│ ├── extractor.py # Key info extraction (action items, decisions)
-│ ├── rag_engine.py # Q&A over transcript
+│   ├── transcriber.py          # Whisper Speech-to-Text
+│   ├── summarizer.py           # Meeting Summary & Title
+│   ├── extractor.py            # Action Items, Decisions, Open Questions
+│   ├── rag_engine.py           # RAG-based Meeting Chat
+│   ├── vector_store.py         # Chroma Vector Store
+│
 ├── utils/
-│ ├── audio_processor.py # Video/audio handling
-├── runtime.txt # Environment setup
+│   ├── audio_processor.py      # Audio & Video Processing
+│
 ├── requirements.txt
-└── README.md
-
-
----
-
-## ⚙️ How It Works
-
-1. User provides a **YouTube link or local video file**
-2. System extracts audio using `yt-dlp` or local processing
-3. Audio is converted into text using transcription engine
-4. LLM processes transcript to:
-   - Summarize content  
-   - Extract key insights  
-   - Identify action items and decisions  
-5. A **RAG-based engine** allows querying the video content like a chatbot  
+├── runtime.txt
+├── README.md
+```
 
 ---
 
-## 📂 Project Structure
+# ⚙️ Installation
+
+Clone the repository
+
+```bash
+git clone https://github.com/Ashutosh021205/AI_VIDEO_ASSISTANT.git
+```
+
+Navigate to the project
+
+```bash
+cd AI_VIDEO_ASSISTANT
+```
+
+Install dependencies
+
+```bash
+pip install -r requirements.txt
+```
+
+Create a `.env` file
+
+```env
+MISTRAL_API_KEY=YOUR_API_KEY
+```
+
+Run the application
+
+```bash
+streamlit run app.py
+```
+
+---
+
+# 🚀 How It Works
+
+1. Upload a meeting audio/video or provide a YouTube URL.
+2. Audio is extracted and preprocessed.
+3. Whisper converts speech into text.
+4. Mistral AI generates:
+   - Meeting Title
+   - Meeting Summary
+   - Action Items
+   - Key Decisions
+   - Open Questions
+5. Transcript is indexed into ChromaDB.
+6. Users can ask questions using the RAG-powered assistant.
+
+---
+
+# 📸 Application Output
+
+The application provides:
+
+- 📝 Meeting Title
+- 📋 Meeting Summary
+- ✅ Action Items
+- 🔑 Key Decisions
+- ⚠ Open Questions
+- 📄 Full Transcript
+- 💬 Chat with Meeting
+
+---
+
+# 🎯 Future Enhancements
+
+- 📄 Export Meeting Report as PDF
+- 📥 Download Transcript
+- 📊 Meeting Analytics Dashboard
+- 👥 Speaker Diarization
+- 🌍 Automatic Language Detection
+- ☁ Cloud Deployment
+- 🗂 Meeting History Database
+
+---
+
+# 📈 Use Cases
+
+- Corporate Meetings
+- Daily Standups
+- Client Calls
+- Team Discussions
+- Project Planning
+- Online Lectures
+- Interview Recordings
+
+---
+
+# 👨‍💻 Author
+
+**Ashutosh Kunjeer**
+
+- LinkedIn: https://www.linkedin.com/in/ashutosh-kunjeer
+- GitHub: https://github.com/Ashutosh021205
+
+---
+
+# ⭐ If you found this project useful, don't forget to star the repository!
